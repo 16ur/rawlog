@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.workout import Workout
+from app.models.workout import Workout as WorkoutModel
 from app.schemas.workout import WorkoutCreate
 
 # TODO :
@@ -8,7 +8,7 @@ from app.schemas.workout import WorkoutCreate
 #  get_workouts(db) -> liste toutes les séances
 
 def create_workout(db: Session, workout: WorkoutCreate):
-    db_workout = Workout(
+    db_workout = WorkoutModel(
         date = workout.date,
         notes = workout.notes
     )
@@ -21,3 +21,9 @@ def create_workout(db: Session, workout: WorkoutCreate):
         db.rollback()
         raise e
     return db_workout
+
+def get_workout(db: Session, workout_id: int):
+    return db.query(WorkoutModel).filter(WorkoutModel.id == workout_id).first()
+
+def get_all_workouts(db:Session):
+    return db.query(WorkoutModel).all()

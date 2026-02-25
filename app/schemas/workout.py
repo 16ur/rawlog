@@ -17,18 +17,30 @@ class WorkoutExerciseCreate(BaseModel):
     exercise_id: int
     sets: list[SetDetails]
 
-# Séance avec pleins d'exercice et les series etc
-class WorkoutCreate(BaseModel):
+
+# Pour créer un workout avec des exercices
+class WorkoutCreateFull(BaseModel):
     date: date
     notes: str
     exercises: list[WorkoutExerciseCreate]
+
+# Pour créer un workout sans exercice (temporaire)
+class WorkoutCreate(BaseModel):
+    date: date
+    notes: str
+
+# Pour lire un workout sans exercices
+class Workout(BaseModel):
+    id: int
+    date: date
+    notes: str
     
-    
+    class Config:
+        from_attributes = True
+
+
 class Exercise(ExerciseCreate):
     id: int
 
-class Workout(WorkoutCreate):
-    id: int
-
-class WorkoutExersice(WorkoutExerciseCreate):
+class WorkoutExercise(WorkoutExerciseCreate):
     id: int
