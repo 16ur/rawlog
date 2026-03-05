@@ -1,16 +1,19 @@
 from pydantic import BaseModel
 from datetime import date
 
+
 # Ex: Curl Biceps - Muscle ciblé ["Biceps", "Avant-bras"]
 class ExerciseCreate(BaseModel):
     name: str
     description: str
     target_muscles: list[str]
 
+
 # Représente UNE série d'un exercice -> "reps":12, "weight":10
 class SetDetails(BaseModel):
     reps: int
     weight: int
+
 
 # Curl Biceps avec les séries et reps
 class WorkoutExerciseCreate(BaseModel):
@@ -24,23 +27,26 @@ class WorkoutCreateFull(BaseModel):
     notes: str
     exercises: list[WorkoutExerciseCreate]
 
+
 # Pour créer un workout sans exercice (temporaire)
 class WorkoutCreate(BaseModel):
     date: date
     notes: str
+
 
 # Pour lire un workout sans exercices
 class Workout(BaseModel):
     id: int
     date: date
     notes: str
-    
+
     class Config:
         from_attributes = True
 
 
 class Exercise(ExerciseCreate):
     id: int
+
 
 class WorkoutExercise(WorkoutExerciseCreate):
     id: int
