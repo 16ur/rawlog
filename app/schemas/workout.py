@@ -2,13 +2,6 @@ from pydantic import BaseModel
 from datetime import date
 
 
-# Ex: Curl Biceps - Muscle ciblé ["Biceps", "Avant-bras"]
-class ExerciseCreate(BaseModel):
-    name: str
-    description: str
-    target_muscles: list[str]
-
-
 # Représente UNE série d'un exercice -> "reps":12, "weight":10
 class SetDetails(BaseModel):
     reps: int
@@ -42,10 +35,6 @@ class Workout(BaseModel):
 
     class Config:
         from_attributes = True
-
-
-class Exercise(ExerciseCreate):
-    id: int
 
 
 class WorkoutExercise(WorkoutExerciseCreate):
