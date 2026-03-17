@@ -1,15 +1,20 @@
 from sqlalchemy.orm import Session
 from app.models.exercise import Exercise as ExerciseModel
+from app.models.muscle import Muscle as MuscleModel
 from app.schemas.exercise import ExerciseCreate
+from sqlalchemy.orm import joinedload
 
 
 def create_exercise(db: Session, exercise: ExerciseCreate):
     db_exercise = ExerciseModel(
         name=exercise.name,
         description=exercise.description,
-        target_muscles=exercise.target_muscles,
     )
 
+    muscles = (
+        db.query(MuscleModel).filter(MuscleModel.id.in_(exercise.muscle_ids)).all()
+    )
+    db_exercise.muscles = muscles
     try:
         db.add(db_exercise)
         db.commit()
@@ -21,8 +26,13 @@ def create_exercise(db: Session, exercise: ExerciseCreate):
 
 
 def get_exercise(db: Session, exercise_id: int):
-    return db.query(ExerciseModel).filter(ExerciseModel.id == exercise_id).first()
+    return (
+        db.query(ExerciseModel)
+        .options(joinedload(ExerciseModel.muscles))
+        .filter(ExerciseModel.id == exercise_id)
+        .first()
+    )
 
 
-def get_all_exercises(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(ExerciseModel).offset(skip).limit(limit).all()
+def get_all_exercises(db: Session):
+    return db.query(ExerciseModel).options(joinedload(ExerciseModel.muscles)).all()

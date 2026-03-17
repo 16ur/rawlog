@@ -18,7 +18,5 @@ def get_exercise_handler(exercise_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/exercises/", response_model=list[Exercise])
-def get_all_exercises_handler(
-    skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
-):
-    return get_all_exercises(db, skip=skip, limit=limit)
+def get_all_exercises_handler(db: Session = Depends(get_db)):
+    return get_all_exercises(db)
