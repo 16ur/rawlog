@@ -1,17 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-
-
-# Représente UNE série d'un exercice -> "reps":12, "weight":10
-class SetDetails(BaseModel):
-    reps: int
-    weight: int
-
-
-# Curl Biceps avec les séries et reps
-class WorkoutExerciseCreate(BaseModel):
-    exercise_id: int
-    sets: list[SetDetails]
+from app.schemas.workout_exercise import WorkoutExerciseCreate, WorkoutExercise
 
 
 # Pour créer un workout avec des exercices
@@ -37,5 +26,5 @@ class Workout(BaseModel):
         from_attributes = True
 
 
-class WorkoutExercise(WorkoutExerciseCreate):
-    id: int
+class WorkoutWithExercises(Workout):
+    exercises: list[WorkoutExercise]

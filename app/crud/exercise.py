@@ -14,9 +14,9 @@ def create_exercise(db: Session, exercise: ExerciseCreate):
         db.add(db_exercise)
         db.commit()
         db.refresh(db_exercise)
-    except Exception as e:
+    except Exception:
         db.rollback()
-        raise e
+        raise
     return db_exercise
 
 
