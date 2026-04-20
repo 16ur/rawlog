@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class SetDetails(BaseModel):
-    reps: int
-    weight: int
+    reps: int = Field(gt=0, le=100)
+    weight: int = Field(ge=0, le=500)
 
 
 class WorkoutExerciseCreate(BaseModel):
