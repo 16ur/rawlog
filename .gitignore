@@ -9,4 +9,5 @@ wheels/
 # Virtual environments
 .venv
 .env
+docker-compose.override.yaml
 landing.html
