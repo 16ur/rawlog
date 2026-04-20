@@ -8,7 +8,7 @@ exercise_muscles = Table(
     Base.metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("exercise_id", Integer, ForeignKey("exercises.id", ondelete="CASCADE")),
-    Column("muscle_id", Integer, ForeignKey("muscles.id")),
+    Column("muscle_id", Integer, ForeignKey("muscles.id", ondelete="CASCADE")),
 )
 
 

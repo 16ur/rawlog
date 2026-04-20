@@ -8,4 +8,6 @@ class Workout(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     date = Column(Date)
     notes = Column(Text)
-    exercises = relationship("WorkoutExercise", back_populates="workout")
+    exercises = relationship(
+        "WorkoutExercise", back_populates="workout", passive_deletes=True
+    )
