@@ -88,7 +88,3 @@ Always review the generated file in `alembic/versions/` before applying it.
 FastAPI provides automatic interactive API documentation:
 
 - Swagger UI: `http://localhost:8000/docs`
-
-## License
-
-This project is for personal use and learning purposes.
